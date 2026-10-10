@@ -2,7 +2,7 @@
 
 AutoShot ([autoshotapp.com](https://autoshotapp.com)) turns dealership lot photos into listing images with a consistent studio background. This repository is the public Cursor Marketplace plugin. It does not contain the AutoShot application.
 
-The plugin connects Cursor and Grok Bot to the production MCP server at `https://autoshotapp.com/api/mcp` (Streamable HTTP). Sign-in uses OAuth with PKCE S256 and a public client. There is no client secret and no dynamic client registration.
+The plugin connects Cursor and Grok Bot to the production MCP server at `https://autoshotapp.com/api/mcp` (Streamable HTTP). Install needs that URL only. Sign-in is OAuth with PKCE `S256` and [dynamic client registration](https://autoshotapp.com/plugin/oauth/register). There is no client secret.
 
 The MIT license covers this package: the manifest, skills, rule, logo, and docs. The hosted service is governed by [AutoShot's terms](https://autoshotapp.com/terms) and [privacy policy](https://autoshotapp.com/privacy).
 
@@ -36,7 +36,7 @@ To try the folder before it is listed, copy this repository to `~/.cursor/plugin
 
 ## Connect
 
-The production manifest uses a static OAuth client so Cursor does not try dynamic registration.
+`mcp.json` publishes the URL and nothing else. Cursor's MCP docs use an `auth` object only when the provider does not support dynamic client registration. `CLIENT_ID` is required inside that object, not on a URL-only server. This server advertises `registration_endpoint`, so the published file leaves `auth` out. Adding a static client id would select the static client instead of registration.
 
 | Piece | Value |
 | --- | --- |
@@ -44,14 +44,25 @@ The production manifest uses a static OAuth client so Cursor does not try dynami
 | Resource | `https://autoshotapp.com/api/mcp` (must match exactly) |
 | Issuer | `https://autoshotapp.com/plugin/oauth` |
 | Metadata | `https://autoshotapp.com/.well-known/oauth-authorization-server/plugin/oauth` |
-| Client id | `54181693-917f-49f1-ad07-f40b596c511d` |
+| Registration | `https://autoshotapp.com/plugin/oauth/register` |
 | Client secret | None. The token endpoint advertises `none`. |
 | PKCE | `S256` only |
 | Scopes | `photos:read`, `photos:process`, `preferences:write` |
 | Web, Cloud Agents, and Grok Bot redirect | `https://www.cursor.com/agents/mcp/oauth/callback` |
 | Desktop and CLI redirect | `http://localhost:8787/callback` |
 
-The client id is public on purpose. Do not add a client secret to `mcp.json`.
+An unauthenticated call returns `401` with `scope="photos:read photos:process preferences:write"`.
+
+### Optional static client
+
+Use this only if a Cursor build fails registration and you are editing a local `mcp.json`. Do not put it in the published file, and do not ask a Grok Bot user to paste it. There is still no client secret.
+
+```json
+"auth": {
+  "CLIENT_ID": "54181693-917f-49f1-ad07-f40b596c511d",
+  "scopes": ["photos:read", "photos:process", "preferences:write"]
+}
+```
 
 ## Credits
 
@@ -67,7 +78,7 @@ Revoke the connection on the AutoShot account page: [autoshotapp.com/account](ht
 
 The photo is uploaded to AutoShot and then sent to OpenAI's image API for the edit. Processed results are kept for seven days, the same as the website. Signed download links last one hour. AutoShot does not receive the conversation text.
 
-The service is for people 18 or older, matching [the terms](https://autoshotapp.com/terms).
+The published terms require age 13 or older. Anyone under 18 needs permission from a parent or legal guardian. See [the terms](https://autoshotapp.com/terms). The live privacy policy and terms still name the website, Telegram, and ChatGPT. Draft text that also covers Cursor and Grok Bot is in [SUBMISSION.md](SUBMISSION.md) for the operator to publish on the site.
 
 ## Tools
 
@@ -83,7 +94,7 @@ Background ids: `showroom`, `light-tunnel`, `gallery-spotlight`, `slat-wall`, `s
 
 ## Grok Bot
 
-Grok Bot installs Cursor Marketplace plugins. OAuth tokens stay on Cursor's connector backend. A plugin connection belongs to the Grok Bot account that authorized it, and an installed plugin is available to bots on that account. A teammate's Team Bot asks before it uses the connected account. If the plugin shows Disabled by team admin, a Cursor team admin has to allow the server. Grok Bot uses the team's Cursor MCP policy. There is no separate Grok Bot connector list.
+After AutoShot appears in Grok Bot's Marketplace, install it from Plugins. Until then, add the public MCP URL from chat. OAuth tokens for that Cursor-hosted connection stay on Cursor's connector backend. A plugin connection belongs to the Grok Bot account that authorized it, and an installed plugin is available to bots on that account. A teammate's Team Bot asks before it uses the connected account. On a Cursor team, Grok Bot uses that team's MCP policy. A blocked server shows as Disabled by team admin.
 
 ### From the marketplace
 
@@ -93,24 +104,17 @@ Grok Bot installs Cursor Marketplace plugins. OAuth tokens stay on Cursor's conn
 4. If it says Waiting for authorization, use Reopen.
 5. Confirm AutoShot is under Installed. Added means installed, not signed in. If it shows Needs auth or Disconnected, choose Authorize again.
 
-### Custom MCP, before the listing
+### Custom MCP
 
 Grok Bot has no settings form for a custom server. Add it from the chat. The server must be public HTTPS. Localhost and stdio servers are not reachable from the bot.
 
 Send:
 
 ```text
-Add this MCP server.
-Name: AutoShot
-URL: https://autoshotapp.com/api/mcp
-Static OAuth client id: 54181693-917f-49f1-ad07-f40b596c511d
-Scopes: photos:read photos:process preferences:write
-No client secret. Do not use dynamic client registration.
+Add this MCP server: https://autoshotapp.com/api/mcp
 ```
 
-Then use Authorize and sign in to AutoShot. The cloud callback is `https://www.cursor.com/agents/mcp/oauth/callback`. The `resource` parameter must be `https://autoshotapp.com/api/mcp`.
-
-Cursor's documented chat example is the URL alone. This server does not offer dynamic registration, so the static client id has to be stored with the server. If the connect card keeps only the URL and OAuth fails looking for a registration endpoint, add the server again and include the client id in that same message.
+Then use Authorize and sign in to AutoShot. Registration supplies the client. Do not paste a client id or a client secret. The cloud callback is `https://www.cursor.com/agents/mcp/oauth/callback`. The `resource` parameter must be `https://autoshotapp.com/api/mcp`.
 
 ## Develop against staging
 
@@ -122,11 +126,12 @@ Staging is for a local copy of this plugin only. Do not put these values in `mcp
 | Resource | `https://staging.autoshotapp.com/api/mcp` |
 | Issuer | `https://staging.autoshotapp.com/plugin/oauth` |
 | Metadata | `https://staging.autoshotapp.com/.well-known/oauth-authorization-server/plugin/oauth` |
-| Public client id | `85195ac0-f860-45cf-91d2-92a71088cb1a` |
+| Registration | `https://staging.autoshotapp.com/plugin/oauth/register` |
+| Optional static client id | `85195ac0-f860-45cf-91d2-92a71088cb1a` |
 
-Same scopes, PKCE `S256`, no client secret, and no registration endpoint. Use the same two Cursor redirect URLs as production. Edit only a local `mcp.json` when pointing a test install at staging.
+A staging test uses the same URL-only `mcp.json` shape, with the staging URL substituted in a local copy. Same scopes, PKCE `S256`, and no client secret. The static client id above is only for a local override if registration fails. Use the same two Cursor redirect URLs as production.
 
-On 10 October 2026 the staging metadata document returned that issuer, those scopes, `token_endpoint_auth_methods_supported: ["none"]`, and `code_challenge_methods_supported: ["S256"]`. The protected-resource document named `https://staging.autoshotapp.com/api/mcp`. An unauthenticated `POST` to the staging MCP URL returned `401`. This repository cannot see whether the staging client id is registered.
+On 10 October 2026 the staging metadata document returned that issuer, `registration_endpoint`, those scopes, `token_endpoint_auth_methods_supported: ["none"]`, and `code_challenge_methods_supported: ["S256"]`. An unauthenticated `POST` returned `401` with `scope="photos:read photos:process preferences:write"`. This repository cannot see whether the staging static client id is still registered.
 
 ## Layout
 

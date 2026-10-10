@@ -11,7 +11,7 @@ Use this skill for setup and account questions. Photo processing belongs to `pro
 
 Call `get_autoshot_guide` when the user is connecting for the first time or asks what the plugin can do.
 
-Connecting requires an AutoShot account. The consent page sends the user through AutoShot sign-in. Someone without an account creates one on [autoshotapp.com](https://autoshotapp.com) first. New accounts receive the same signup credits as the website. The service is for people 18 or older.
+Connecting requires an AutoShot account. The consent page sends the user through AutoShot sign-in. Someone without an account creates one on [autoshotapp.com](https://autoshotapp.com) first. New accounts receive the same signup credits as the website. The published terms require age 13 or older, and anyone under 18 needs permission from a parent or legal guardian.
 
 Approve `photos:read`, `photos:process`, and `preferences:write` when Cursor or Grok Bot asks. Read access is required. Processing and saving defaults need the other two scopes.
 

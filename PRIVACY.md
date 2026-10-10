@@ -11,3 +11,5 @@ The hosted service is also covered by the terms at https://autoshotapp.com/terms
 Cursor's handling of OAuth tokens and tool traffic for this plugin is Cursor's. Their privacy policy is at https://cursor.com/privacy.
 
 The MIT license in this repository covers the plugin package (manifest, skills, rule, and docs). It does not replace AutoShot's privacy policy.
+
+The live policy, last updated 8 October 2026, describes the website, web app, Telegram bot, and ChatGPT integration. Draft paragraphs that also name Cursor, Grok Bot, and a grok.com custom connector are in SUBMISSION.md. They are not published until the operator places them on autoshotapp.com.

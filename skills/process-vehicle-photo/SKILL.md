@@ -19,12 +19,11 @@ AutoShot replaces the background of a vehicle photo with one of five studio styl
 
 Do not inline image bytes. The MCP request body cannot carry a photo. Do not pass a `download_url`, a public URL, or any URL you constructed or found. A model-supplied URL is not a photo the user attached.
 
-1. If `create_photo_upload` is not available, stop. Tell the user this chat cannot send the photo yet. Do not invent another way to hand the server a URL.
-2. Call `create_photo_upload` once per photo. It returns a short-lived signed PUT into that user's own folder. It does not spend a credit.
-3. PUT the photo bytes to that signed URL. Source photos can be up to 25 MiB. Use the upload handle the tool returns. Do not reuse a URL from another account or an earlier run.
-4. Call `start_photo_processing` once per photo, passing that upload handle and the confirmed settings. One credit is reserved before processing starts. The same file and the same settings return the earlier job and do not charge again.
-5. At most three plugin jobs may be queued or processing for the account. If the tool returns `busy`, wait and retry only photos that never started. Do not start a fourth job to get around the cap.
-6. If the tool returns `insufficient_credits`, stop. Tell the user to buy credits at [autoshotapp.com](https://autoshotapp.com). Do not start a purchase, invent a checkout, or ask for a card number.
+1. Call `create_photo_upload` once per photo. It is the intake path for this host. It returns a short-lived signed PUT into that user's own folder and does not spend a credit. If the call fails, stop and say the photo was not uploaded. Do not invent a `download_url` or another way to hand the server a URL.
+2. PUT the photo bytes to that signed URL. Source photos can be up to 25 MiB. Use the upload handle the tool returns. Do not reuse a URL from another account or an earlier run.
+3. Call `start_photo_processing` once per photo, passing that upload handle and the confirmed settings. One credit is reserved before processing starts. The same file and the same settings return the earlier job and do not charge again.
+4. At most three plugin jobs may be queued or processing for the account. If the tool returns `busy`, wait and retry only photos that never started. Do not start a fourth job to get around the cap.
+5. If the tool returns `insufficient_credits`, stop. Tell the user to buy credits at [autoshotapp.com](https://autoshotapp.com). Do not start a purchase, invent a checkout, or ask for a card number.
 
 ## Poll and show the result
 
