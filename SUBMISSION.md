@@ -31,7 +31,7 @@ Sources: [Plugins](https://cursor.com/docs/plugins), [Plugins reference](https:/
 - [ ] Screenshots are not in the plugin checklist. Prepare the set in "Listing copy" only if the form asks.
 - [ ] No category enum is in the plugin schema or the submission checklist. Headings seen on [cursor.com/marketplace](https://cursor.com/marketplace) included Data & Analytics, Payments, Canvas, Customer Support, Design, and Documents and Files. That page was not a complete category list.
 - [ ] Confirm `autoshot` is free. A web search did not find a Cursor Marketplace plugin with that name. The catalog was not fully enumerated.
-- [ ] Set `repository` in `.cursor-plugin/plugin.json` to the public Git URL after this project has one. The field is optional in the schema and is omitted until then.
+- [x] `repository` in `.cursor-plugin/plugin.json` is `https://github.com/hlilkin/autoshot-plugin`.
 - [ ] A desktop Cursor login was not repeated for this package. Confirm both redirects and that the authorize URL includes `resource=https://autoshotapp.com/api/mcp`.
 
 ### Cursor install fact, verified
@@ -107,8 +107,8 @@ Verified from production on 10 October 2026 unless noted.
 
 ## This repository
 
-- [ ] Create a public Git repository. This environment does not assign a public GitHub URL.
-- [ ] Set `repository` in `.cursor-plugin/plugin.json` to that URL.
+- [x] Public Git repository: [github.com/hlilkin/autoshot-plugin](https://github.com/hlilkin/autoshot-plugin).
+- [x] `repository` in `.cursor-plugin/plugin.json` is that URL.
 - [ ] Confirm the logo. `assets/logo.png` is a 512×512 render of [autoshotapp.com/icon.svg](https://autoshotapp.com/icon.svg), not a byte copy of the private app icon.
 - [ ] Read `mcp.json` and confirm it contains only the production URL.
 - [ ] Keep the staging client id in the README dev section only.

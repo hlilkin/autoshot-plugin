@@ -1,6 +1,6 @@
 # AutoShot for Cursor and Grok Bot
 
-AutoShot ([autoshotapp.com](https://autoshotapp.com)) turns dealership lot photos into listing images with a consistent studio background. This repository is the public Cursor Marketplace plugin. It does not contain the AutoShot application.
+AutoShot ([autoshotapp.com](https://autoshotapp.com)) turns dealership lot photos into listing images with a consistent studio background. [This repository](https://github.com/hlilkin/autoshot-plugin) is the public Cursor Marketplace plugin. It does not contain the AutoShot application.
 
 The plugin connects Cursor and Grok Bot to the production MCP server at `https://autoshotapp.com/api/mcp` (Streamable HTTP). Install needs that URL only. Sign-in is OAuth with PKCE `S256` and [dynamic client registration](https://autoshotapp.com/plugin/oauth/register). There is no client secret.
 
@@ -32,7 +32,7 @@ After the plugin is listed:
 
 Cursor asks before MCP tool calls by default. On a Teams or Enterprise account, an admin can block the server. A blocked plugin still installs, and the server cannot be called. Enterprise admins control that from the MCP allowlist.
 
-To try the folder before it is listed, copy this repository to `~/.cursor/plugins/local/autoshot`, reload Cursor, and confirm the skills, the rule, and the MCP server under Customize. On Teams and Enterprise, local plugin imports may be disabled by an admin.
+To try the folder before it is listed, clone [github.com/hlilkin/autoshot-plugin](https://github.com/hlilkin/autoshot-plugin) into `~/.cursor/plugins/local/autoshot`, reload Cursor, and confirm the skills, the rule, and the MCP server under Customize. On Teams and Enterprise, local plugin imports may be disabled by an admin.
 
 ## Connect
 
@@ -151,4 +151,4 @@ SUBMISSION.md
 
 `assets/logo.png` is a 512×512 render of the public mark at [autoshotapp.com/icon.svg](https://autoshotapp.com/icon.svg): an orange hexagon, `#ff6b2c`.
 
-Submission steps for the owner are in [SUBMISSION.md](SUBMISSION.md).
+Source: [github.com/hlilkin/autoshot-plugin](https://github.com/hlilkin/autoshot-plugin). Submission steps for the owner are in [SUBMISSION.md](SUBMISSION.md).
