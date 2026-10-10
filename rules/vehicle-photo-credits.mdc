@@ -1,0 +1,11 @@
+---
+description: Keep AutoShot photo jobs on the signed upload path and confirm before spending a credit.
+alwaysApply: true
+---
+
+When AutoShot is connected and the user wants a vehicle photo prepared, follow the `process-vehicle-photo` skill.
+
+- State the background, plate treatment, whether a saved logo will stamp exteriors, and the one-credit cost. Wait for the user to confirm before `start_photo_processing`.
+- Send the photo with `create_photo_upload` and that tool's signed PUT. Never pass a made-up `download_url` or inline image bytes.
+- On `insufficient_credits`, stop and send the user to https://autoshotapp.com. Do not offer checkout.
+- Plate treatment does not guarantee a plate is unreadable. The user should compare the result with the original before publishing.

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "autoshot": {
+      "url": "https://autoshotapp.com/api/mcp",
+      "auth": {
+        "CLIENT_ID": "54181693-917f-49f1-ad07-f40b596c511d",
+        "scopes": ["photos:read", "photos:process", "preferences:write"]
+      }
+    }
+  }
+}
