@@ -76,13 +76,15 @@ Revoke the connection on the AutoShot account page: [autoshotapp.com/account](ht
 
 ## Data
 
-The photo is uploaded to AutoShot and then sent to OpenAI's image API for the edit. Processed results are kept for seven days, the same as the website. Signed download links last one hour. AutoShot does not receive the conversation text.
+The photo is uploaded to AutoShot and then sent to OpenAI's image API for the edit. Processed results are kept for seven days, the same as the website. In hosts that cannot render a result card, such as Cursor and Grok Bot, `show_photo_result` returns preview images plus each photo's full-resolution signed download link. Those links last one hour, and anyone holding a valid link can open that result until it expires. AutoShot does not receive the conversation text.
 
-The published terms require age 13 or older. Anyone under 18 needs permission from a parent or legal guardian. See [the terms](https://autoshotapp.com/terms). The live privacy policy and terms still name the website, Telegram, and ChatGPT. Draft text that also covers Cursor and Grok Bot is in [SUBMISSION.md](SUBMISSION.md) for the operator to publish on the site.
+The published terms require age 13 or older. Anyone under 18 needs permission from a parent or legal guardian. See [the terms](https://autoshotapp.com/terms). The [privacy policy](https://autoshotapp.com/privacy) and [terms](https://autoshotapp.com/terms) have sections for Cursor, Grok Bot, and grok.com.
 
 ## Tools
 
 Read tools do not spend a credit: `get_autoshot_guide`, `list_studio_backgrounds`, `get_photo_preferences`, `list_recent_photos`, `get_photo_processing_status`, and `show_photo_result`.
+
+`show_photo_result` shows the finished photos. Where no result card is available (Cursor and Grok Bot), it returns preview images and a text block with each photo's full-resolution signed download link, valid for one hour. The agent downloads the files from those links and hands them to the user, or shares the links.
 
 `save_photo_preferences` needs `preferences:write`. It spends no credit and does not process a photo. Call it only when the user asks to save defaults.
 
@@ -143,6 +145,7 @@ skills/autoshot-account/SKILL.md
 rules/vehicle-photo-credits.mdc
 assets/logo.png
 README.md
+CHANGELOG.md
 LICENSE
 PRIVACY.md
 TERMS.md

@@ -1,6 +1,7 @@
 {
   "mcpServers": {
     "autoshot": {
+      "type": "http",
       "url": "https://autoshotapp.com/api/mcp"
     }
   }
