@@ -30,7 +30,7 @@ Sources: [Plugins](https://cursor.com/docs/plugins), [Plugins reference](https:/
 
 - [ ] The publish page title is "Publish a Cursor Marketplace Plugin" and the meta description calls it a plugin publisher application. The form fields beyond the repository link were not readable from the static HTML. Confirm the form while signed in. It is not the Origin app form at [cursor.com/docs/origin/apps/publish](https://cursor.com/docs/origin/apps/publish), which asks for a demo video. That video requirement was not in the plugin checklist.
 - [ ] Screenshots are not in the plugin checklist. Prepare the set in "Listing copy" only if the form asks.
-- [ ] No category enum is in the plugin schema or the submission checklist. Headings seen on [cursor.com/marketplace](https://cursor.com/marketplace) included Data & Analytics, Payments, Canvas, Customer Support, Design, and Documents and Files. That page was not a complete category list.
+- [x] Category: the schema takes a free-text `category`. Every hosted-MCP connector in [cursor/plugins](https://github.com/cursor/plugins/tree/main/third_party) uses `integrations` (a few use `productivity`), so the manifest sets `integrations`.
 - [ ] Confirm `autoshot` is free. A web search did not find a Cursor Marketplace plugin with that name. The catalog was not fully enumerated.
 - [x] `repository` in `.cursor-plugin/plugin.json` is `https://github.com/hlilkin/autoshot-plugin`.
 - [ ] A desktop Cursor login was not repeated for this package. Confirm both redirects and that the authorize URL includes `resource=https://autoshotapp.com/api/mcp`.
@@ -127,7 +127,7 @@ Use this for the Cursor Marketplace form and for the Grok Bot plugin card if tha
 | Plugin id | `autoshot` |
 | Homepage | https://autoshotapp.com |
 | Short description | Turn dealership lot photos into listing-ready studio images on the connected AutoShot account. One credit per new photo. |
-| Category | No automotive category was published. If the form has a free-text field, use Automotive. If it forces one of the headings seen on cursor.com/marketplace, leave the choice to the reviewer and say none of those headings fit a dealership photo tool. Unverified which control the form uses. |
+| Category | `integrations`, the value Cursor uses for hosted-MCP connectors. If the form offers a different control, pick the closest match. |
 | Keywords | automotive, dealership, photos, background-removal |
 
 Long description:
