@@ -8,7 +8,7 @@ Two catalogs are easy to mix up. The plugin listing is the Cursor Marketplace. G
 
 ## Cursor Marketplace
 
-Submit the public repository at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish).
+Submit the public repository at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish). The plugin template also lists a submission contact, the Cursor team at kniparko@anysphere.com, as an alternative.
 
 ### Verified requirements
 
@@ -23,13 +23,14 @@ Sources: [Plugins](https://cursor.com/docs/plugins), [Plugins reference](https:/
 - [ ] `mcp.json` has no `${VAR}` placeholders, so the manifest does not need a `variables` schema. It also has no `CLIENT_SECRET` and no headers.
 - [ ] This is one plugin. Do not add `.cursor-plugin/marketplace.json` unless the repo later holds several plugins.
 - [ ] Test locally: copy the folder to `~/.cursor/plugins/local/autoshot` and reload Cursor. Teams and Enterprise can disable local plugin imports.
+- [x] Validated with Cursor's CI script `scripts/validate-plugins.mjs` from [github.com/cursor/plugins](https://github.com/cursor/plugins) and `scripts/validate-template.mjs` from [github.com/cursor/plugin-template](https://github.com/cursor/plugin-template). Both pass.
 - [ ] Submit the repository link. Cursor reviews the listing and every later update before it ships. A plugin that is not maintained after a security report can be removed. Report plugin issues to security-reports@cursor.com.
 
 ### Unverified for Cursor
 
 - [ ] The publish page title is "Publish a Cursor Marketplace Plugin" and the meta description calls it a plugin publisher application. The form fields beyond the repository link were not readable from the static HTML. Confirm the form while signed in. It is not the Origin app form at [cursor.com/docs/origin/apps/publish](https://cursor.com/docs/origin/apps/publish), which asks for a demo video. That video requirement was not in the plugin checklist.
 - [ ] Screenshots are not in the plugin checklist. Prepare the set in "Listing copy" only if the form asks.
-- [ ] No category enum is in the plugin schema or the submission checklist. Headings seen on [cursor.com/marketplace](https://cursor.com/marketplace) included Data & Analytics, Payments, Canvas, Customer Support, Design, and Documents and Files. That page was not a complete category list.
+- [x] Category: the schema takes a free-text `category`. Every hosted-MCP connector in [cursor/plugins](https://github.com/cursor/plugins/tree/main/third_party) uses `integrations` (a few use `productivity`), so the manifest sets `integrations`.
 - [ ] Confirm `autoshot` is free. A web search did not find a Cursor Marketplace plugin with that name. The catalog was not fully enumerated.
 - [x] `repository` in `.cursor-plugin/plugin.json` is `https://github.com/hlilkin/autoshot-plugin`.
 - [ ] A desktop Cursor login was not repeated for this package. Confirm both redirects and that the authorize URL includes `resource=https://autoshotapp.com/api/mcp`.
@@ -126,7 +127,7 @@ Use this for the Cursor Marketplace form and for the Grok Bot plugin card if tha
 | Plugin id | `autoshot` |
 | Homepage | https://autoshotapp.com |
 | Short description | Turn dealership lot photos into listing-ready studio images on the connected AutoShot account. One credit per new photo. |
-| Category | No automotive category was published. If the form has a free-text field, use Automotive. If it forces one of the headings seen on cursor.com/marketplace, leave the choice to the reviewer and say none of those headings fit a dealership photo tool. Unverified which control the form uses. |
+| Category | `integrations`, the value Cursor uses for hosted-MCP connectors. If the form offers a different control, pick the closest match. |
 | Keywords | automotive, dealership, photos, background-removal |
 
 Long description:
@@ -152,45 +153,3 @@ Only if the operator also publishes a Bot. This is not the plugin listing.
 | Name | Lot Photo Desk |
 | Closest heading seen on the page | Operations. Unverified whether a shared template can be filed under a heading. |
 | Card description | Turns a dealership's lot photos into studio listing images with AutoShot. Confirms the background and the one-credit cost before each photo, and never buys credits or publishes a result on its own. |
-
-## Draft privacy and terms
-
-Paste this onto autoshotapp.com. Do not treat it as published because it sits in this repo. Keep the existing ChatGPT sections. Update the "Last updated" date. Translate the same changes for every locale. The live terms require age 13 or older, and under 18 with a parent or guardian. Do not replace that with an 18-only rule.
-
-The draft names OpenAI because the current ChatGPT privacy section already names OpenAI's image API. If the site's general processor list stays unnamed, use that same name here instead of introducing a second one.
-
-### Privacy: opening sentence
-
-Replace the service list in the first paragraph with:
-
-AutoShot ("AutoShot", "we", "us", "our") is operated by Hristo Lilkin, an individual based in Bulgaria, currently operating as a sole trader (not yet incorporated as a company). This Privacy Policy explains what personal data we collect when you use the AutoShot website, web application, Telegram bot, ChatGPT integration, and connections from Cursor, Grok Bot, and grok.com (together, the "Service"), why we collect it, and what rights you have under the EU General Data Protection Regulation (GDPR) and Bulgarian law.
-
-### Privacy: new section after the ChatGPT section
-
-Cursor, Grok Bot, and grok.com
-
-You can connect the same AutoShot account from Cursor, from Grok Bot, or from a custom connector on grok.com. Connecting stores the same kind of grant record we store for ChatGPT: your AutoShot account identifier, the permissions you approved, and when the connection expires or is revoked. Connections are valid for up to 90 days. Photo viewing, processing, and saving preferences require their respective permissions (`photos:read`, `photos:process`, and `preferences:write`). Disconnect on your AutoShot account page to stop further access. Disconnection does not delete your account or past results. Connection records are covered by account-deletion requests.
-
-When you connect from Cursor or Grok Bot, Cursor stores the OAuth token on its connector backend. The assistant calls AutoShot's tools without receiving that token. Cursor's handling of the token and of tool traffic on its side is covered by Cursor's privacy policy (https://cursor.com/privacy). When you connect from grok.com, authentication finishes in the browser with AutoShot, and Grok's handling of that connection is covered by xAI's privacy policy (https://x.ai/legal/privacy-policy).
-
-For the edit you request, you upload the photo to your own AutoShot folder through a short-lived signed upload. AutoShot then sends that photo, the chosen settings, and any applicable saved logo to OpenAI's image-processing API, as it does for the website and the ChatGPT integration. We return preferences, processing status, background information, and requested images, including preview images, to the connected assistant. We do not receive the chat transcript. We receive the tool arguments, including the uploaded photo. Full-resolution download links last one hour. Anyone holding a valid link may access that result until it expires. Image retention follows Section 6. AutoShot uses connected-account data to provide the requested features, not for advertising.
-
-### Terms: opening sentence
-
-Replace the service list in the first paragraph with:
-
-These Terms of Service ("Terms") govern your use of AutoShot — the website, web application, Telegram bot, ChatGPT integration, and connections from Cursor, Grok Bot, and grok.com (together, the "Service") — operated by Hristo Lilkin ("we", "us", "our"), an individual based in Bulgaria currently operating as a sole trader.
-
-### Terms: sentence to add to Acceptable use
-
-Using Cursor, Grok Bot, or a grok.com connector to process vehicle photos on your own account is part of the Service. That use is not the scraping, probing, or overload prohibited above.
-
-### Terms: new section after the ChatGPT section
-
-Cursor, Grok Bot, and grok.com
-
-Connecting AutoShot from Cursor, Grok Bot, or grok.com authorizes only the permissions you approve. Processing one new photo uses one existing AutoShot credit. Checking an existing job does not use another credit. Running the same photo with the same settings again returns the earlier job and does not charge a second credit. Failed processing jobs refund the reserved credit. Availability also depends on the account balance and the service limits, including how many jobs may be in progress at once.
-
-The connection cannot purchase credits. Buying credits, uploading a logo, and disconnecting the connection are done on the AutoShot website. With the separate settings permission, the connection can save your studio background and plate treatment as account defaults when you ask it to. These setup steps are optional for background replacement.
-
-AI results must be reviewed before use. License-plate treatment does not guarantee anonymization. Use vehicle photos and logos you have permission to process. You are responsible for confirming a result before you publish it in a listing.

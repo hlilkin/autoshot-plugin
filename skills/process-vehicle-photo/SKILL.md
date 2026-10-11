@@ -31,7 +31,7 @@ Do not inline image bytes. The MCP request body cannot carry a photo. Do not pas
 2. An error job refunds the reserved credit. Say that the credit was returned. A reused job did not spend a new credit.
 3. When every job in this run has finished, call `show_photo_result` once with those ids.
 4. If a result card appears, leave the full-resolution links inside it. Do not copy signed download URLs into the chat.
-5. If no card appears, show the preview images the tool returned and tell the user the full files are in Recent photos on [autoshotapp.com](https://autoshotapp.com) for seven days. Download links last one hour.
+5. If no card appears (Cursor and Grok Bot), `show_photo_result` returns the preview images plus a text block with each photo's full-resolution signed download link, which expires in one hour. Show the preview images, then download each full-resolution file from those links and give the files to the user, or share the links. Never edit, shorten, or rebuild a signed URL. The files also stay in Recent photos on [autoshotapp.com](https://autoshotapp.com) for seven days.
 
 ## Refuse
 

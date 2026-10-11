@@ -1,6 +1,6 @@
 ---
 description: Keep AutoShot photo jobs on the signed upload path and confirm before spending a credit.
-alwaysApply: true
+alwaysApply: false
 ---
 
 When AutoShot is connected and the user wants a vehicle photo prepared, follow the `process-vehicle-photo` skill.
