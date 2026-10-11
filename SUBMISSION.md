@@ -8,7 +8,7 @@ Two catalogs are easy to mix up. The plugin listing is the Cursor Marketplace. G
 
 ## Cursor Marketplace
 
-Submit the public repository at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish). The plugin template also lists a submission contact, the Cursor team at kniparko@anysphere.com, as an alternative.
+Submit the public repository at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish).
 
 ### Verified requirements
 
