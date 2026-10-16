@@ -1,10 +1,32 @@
 # AutoShot for Cursor and Grok Bot
 
-AutoShot ([autoshotapp.com](https://autoshotapp.com)) turns dealership lot photos into listing images with a consistent studio background. [This repository](https://github.com/hlilkin/autoshot-plugin) is the public Cursor Marketplace plugin. It does not contain the AutoShot application.
+AutoShot ([autoshotapp.com](https://autoshotapp.com)) turns dealership lot photos into listing images with a consistent studio background. [This repository](https://github.com/hlilkin/autoshot-plugin) is the open plugin for Cursor and Grok Bot. It does not contain the AutoShot application.
 
 The plugin connects Cursor and Grok Bot to the production MCP server at `https://autoshotapp.com/api/mcp` (Streamable HTTP). Install needs that URL only. Sign-in is OAuth with PKCE `S256` and [dynamic client registration](https://autoshotapp.com/plugin/oauth/register). There is no client secret.
 
 The MIT license covers this package: the manifest, skills, rule, logo, and docs. The hosted service is governed by [AutoShot's terms](https://autoshotapp.com/terms) and [privacy policy](https://autoshotapp.com/privacy).
+
+## Quick start
+
+**Grok Bot:** send `Add this MCP server: https://autoshotapp.com/api/mcp`, tap Authorize, sign in to AutoShot, and approve the three scopes. Then upload a car photo and ask for a studio background.
+
+**Cursor:** add this to `~/.cursor/mcp.json`:
+
+```json
+{ "mcpServers": { "autoshot": { "type": "http", "url": "https://autoshotapp.com/api/mcp" } } }
+```
+
+Or clone this repo into `~/.cursor/plugins/local/autoshot` to also get the skills and rule.
+
+You need an AutoShot account ([autoshotapp.com](https://autoshotapp.com)). New accounts get signup credits, and one new photo costs one credit.
+
+### Try it
+
+- "Process this photo with the showroom background."
+- "Put my dealership logo on this exterior and blur the plate."
+- "Show my recent AutoShot photos."
+
+![Before and after: a red hatchback on a parking lot, then on a studio background with a dealership logo](assets/demo-before-after.jpg)
 
 ## What it does
 
@@ -23,7 +45,7 @@ The MIT license covers this package: the manifest, skills, rule, logo, and docs.
 
 ## Install in Cursor
 
-After the plugin is listed:
+From cursor.directory, or with the JSON above:
 
 1. Open Customize in the sidebar.
 2. Search for AutoShot and install it.
