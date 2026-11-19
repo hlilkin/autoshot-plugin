@@ -1,15 +1,13 @@
 # Privacy
 
-This file is a pointer. It is not a separate privacy policy.
+This file links to AutoShot's privacy policy. It is not a policy itself.
 
-AutoShot's privacy policy is the canonical statement of what the service does with an account, a photo, and a plugin connection:
+AutoShot's privacy policy is the canonical statement of what the service does with an account, a photo, and a plugin connection. It covers connections from Cursor, Grok Bot, grok.com, and other MCP clients:
 
 https://autoshotapp.com/privacy
 
 The hosted service is also covered by the terms at https://autoshotapp.com/terms. Support is at https://autoshotapp.com/support.
 
-Cursor's handling of OAuth tokens and tool traffic for this plugin is Cursor's. Their privacy policy is at https://cursor.com/privacy.
+Cursor's privacy policy explains how Cursor handles OAuth tokens and tool traffic for this plugin: https://cursor.com/privacy.
 
 The MIT license in this repository covers the plugin package (manifest, skills, rule, and docs). It does not replace AutoShot's privacy policy.
-
-The live policy, last updated 8 October 2026, describes the website, web app, Telegram bot, and ChatGPT integration. Draft paragraphs that also name Cursor, Grok Bot, and a grok.com custom connector are in SUBMISSION.md. They are not published until the operator places them on autoshotapp.com.
