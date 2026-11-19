@@ -1,7 +1,7 @@
 {
   "name": "autoshot",
   "displayName": "AutoShot",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Turn dealership lot photos into listing-ready studio images on the connected AutoShot account. One credit per new photo.",
   "author": {
     "name": "Hristo Lilkin"

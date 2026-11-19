@@ -45,16 +45,18 @@ You need an AutoShot account ([autoshotapp.com](https://autoshotapp.com)). New a
 
 ## Install in Cursor
 
-From cursor.directory, or with the JSON above:
+Pick one:
 
-1. Open Customize in the sidebar.
-2. Search for AutoShot and install it.
-3. Choose Authorize and sign in to an existing AutoShot account, or create one at [autoshotapp.com](https://autoshotapp.com).
-4. Approve `photos:read`, `photos:process`, and `preferences:write`.
+- **MCP server only:** add the JSON from the quick start to `~/.cursor/mcp.json`.
+- **Plugin folder (also loads the skills and the rule):** clone this repository into `~/.cursor/plugins/local/autoshot` and reload Cursor.
 
-Cursor asks before MCP tool calls by default. On a Teams or Enterprise account, an admin can block the server. A blocked plugin still installs, and the server cannot be called. Enterprise admins control that from the MCP allowlist.
+Then:
 
-To try the folder before it is listed, clone [github.com/hlilkin/autoshot-plugin](https://github.com/hlilkin/autoshot-plugin) into `~/.cursor/plugins/local/autoshot`, reload Cursor, and confirm the skills, the rule, and the MCP server under Customize. On Teams and Enterprise, local plugin imports may be disabled by an admin.
+1. Open Customize in the sidebar and confirm the AutoShot MCP server is listed.
+2. Choose Authorize and sign in to an existing AutoShot account, or create one at [autoshotapp.com](https://autoshotapp.com).
+3. Approve `photos:read`, `photos:process`, and `preferences:write`.
+
+Cursor asks before MCP tool calls by default. On a Teams or Enterprise account, an admin can block the server, and local plugin imports may be disabled. A blocked server cannot be called. Enterprise admins control that from the MCP allowlist.
 
 ## Connect
 
@@ -98,9 +100,9 @@ Revoke the connection on the AutoShot account page: [autoshotapp.com/account](ht
 
 ## Data
 
-The photo is uploaded to AutoShot and then sent to OpenAI's image API for the edit. Processed results are kept for seven days, the same as the website. In hosts that cannot render a result card, such as Cursor and Grok Bot, `show_photo_result` returns preview images plus each photo's full-resolution signed download link. Those links last one hour, and anyone holding a valid link can open that result until it expires. AutoShot does not receive the conversation text.
+The photo is uploaded to AutoShot and then sent to OpenAI's image API for the edit. Processed results are normally removed after seven days, the same as the website. A result tied to an unresolved problem report is kept until the report is resolved. In hosts that cannot render a result card, such as Cursor and Grok Bot, `show_photo_result` returns preview images plus each photo's full-resolution signed download link. Those links last one hour, and anyone holding a valid link can open that result until it expires. AutoShot does not receive the conversation text.
 
-The published terms require age 13 or older. Anyone under 18 needs permission from a parent or legal guardian. See [the terms](https://autoshotapp.com/terms). The [privacy policy](https://autoshotapp.com/privacy) and [terms](https://autoshotapp.com/terms) have sections for Cursor, Grok Bot, and grok.com.
+The published terms require age 13 or older, or the higher minimum age in your country. Anyone under 18 needs permission from a parent or legal guardian. See [the terms](https://autoshotapp.com/terms). The [privacy policy](https://autoshotapp.com/privacy) and [terms](https://autoshotapp.com/terms) have sections for Cursor, Grok Bot, and grok.com.
 
 ## Tools
 
@@ -118,9 +120,9 @@ Background ids: `showroom`, `light-tunnel`, `gallery-spotlight`, `slat-wall`, `s
 
 ## Grok Bot
 
-After AutoShot appears in Grok Bot's Marketplace, install it from Plugins. Until then, add the public MCP URL from chat. OAuth tokens for that Cursor-hosted connection stay on Cursor's connector backend. A plugin connection belongs to the Grok Bot account that authorized it, and an installed plugin is available to bots on that account. A teammate's Team Bot asks before it uses the connected account. On a Cursor team, Grok Bot uses that team's MCP policy. A blocked server shows as Disabled by team admin.
+AutoShot is not yet listed in a Marketplace, so add the public MCP URL from chat. Once it is listed in Grok Bot's Marketplace, you can install it from Plugins instead. OAuth tokens for that Cursor-hosted connection stay on Cursor's connector backend. A plugin connection belongs to the Grok Bot account that authorized it, and an installed plugin is available to bots on that account. A teammate's Team Bot asks before it uses the connected account. On a Cursor team, Grok Bot uses that team's MCP policy. A blocked server shows as Disabled by team admin.
 
-### From the marketplace
+### From the Marketplace (if listed)
 
 1. In Grok Bot, open Plugins on the sidebar. In the mobile app, tap the avatar at the top left and select Plugins.
 2. Search for AutoShot and add it.
@@ -140,23 +142,6 @@ Add this MCP server: https://autoshotapp.com/api/mcp
 
 Then use Authorize and sign in to AutoShot. Registration supplies the client. Do not paste a client id or a client secret. The cloud callback is `https://www.cursor.com/agents/mcp/oauth/callback`. The `resource` parameter must be `https://autoshotapp.com/api/mcp`.
 
-## Develop against staging
-
-Staging is for a local copy of this plugin only. Do not put these values in `mcp.json` or in the marketplace manifest.
-
-| Piece | Staging |
-| --- | --- |
-| MCP URL | `https://staging.autoshotapp.com/api/mcp` |
-| Resource | `https://staging.autoshotapp.com/api/mcp` |
-| Issuer | `https://staging.autoshotapp.com/plugin/oauth` |
-| Metadata | `https://staging.autoshotapp.com/.well-known/oauth-authorization-server/plugin/oauth` |
-| Registration | `https://staging.autoshotapp.com/plugin/oauth/register` |
-| Optional static client id | `85195ac0-f860-45cf-91d2-92a71088cb1a` |
-
-A staging test uses the same URL-only `mcp.json` shape, with the staging URL substituted in a local copy. Same scopes, PKCE `S256`, and no client secret. The static client id above is only for a local override if registration fails. Use the same two Cursor redirect URLs as production.
-
-On 10 October 2026 the staging metadata document returned that issuer, `registration_endpoint`, those scopes, `token_endpoint_auth_methods_supported: ["none"]`, and `code_challenge_methods_supported: ["S256"]`. An unauthenticated `POST` returned `401` with `scope="photos:read photos:process preferences:write"`. This repository cannot see whether the staging static client id is still registered.
-
 ## Layout
 
 ```text
@@ -174,6 +159,6 @@ TERMS.md
 SUBMISSION.md
 ```
 
-`assets/logo.png` is a 512×512 render of the public mark at [autoshotapp.com/icon.svg](https://autoshotapp.com/icon.svg): an orange hexagon, `#ff6b2c`.
+`assets/logo.png` is a 1024×1024 PNG: the public AutoShot mark (an orange hexagon, `#ff6b2c`, from [autoshotapp.com/icon.svg](https://autoshotapp.com/icon.svg)) on an opaque dark plate.
 
 Source: [github.com/hlilkin/autoshot-plugin](https://github.com/hlilkin/autoshot-plugin). Submission steps for the owner are in [SUBMISSION.md](SUBMISSION.md).
