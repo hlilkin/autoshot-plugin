@@ -18,10 +18,10 @@ Form: [x.ai/bot/marketplace/submit-a-plugin](https://x.ai/bot/marketplace/submit
 | MCP Server URL or Public GitHub Repository | https://github.com/hlilkin/autoshot-plugin (the full package: skills, rule, `mcp.json`). The MCP URL alone is `https://autoshotapp.com/api/mcp`. |
 | Brief Description | Turn dealership lot photos into listing-ready studio images on the connected AutoShot account. One credit per new photo. |
 
-Testing instructions (480 characters, limit 600):
+Testing instructions (479 characters, limit 600):
 
 ```text
-Sign up at autoshotapp.com: new accounts get 10 free photos, no card. In Grok Bot send "Add this MCP server: https://autoshotapp.com/api/mcp", tap Authorize, sign in, approve the 3 scopes. Attach a car photo, ask "Process this with the showroom background", then reply Yes to the 1-credit cost. The bot uploads, processes, and shows the result. Cursor: add the URL to mcp.json or clone the repo to ~/.cursor/plugins/local/autoshot. Pre-funded test account: hristo@autoshotapp.com.
+Sign up free at autoshotapp.com: 10 free photos, no card. In Grok Bot send "Add this MCP server: https://autoshotapp.com/api/mcp", tap Authorize, sign in with that account and approve the 3 permissions. Attach a car photo, ask "Process this with the showroom background", then reply Yes to the 1-credit cost. The bot uploads, processes, and shows the studio result. Cursor: add the URL to mcp.json, or clone the repo to ~/.cursor/plugins/local/autoshot and sign in when prompted.
 ```
 
 Before ticking "tested locally and in-app", run a fresh sign-in, upload, and processing test on the final commit. That spends one credit.
